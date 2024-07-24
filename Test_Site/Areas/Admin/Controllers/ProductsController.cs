@@ -2,11 +2,16 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Test_Site_1.Application.Interfaces.FacadPatterns;
 using Test_Site_1.Application.Services.Products.Commands.AddNewProduct;
+
 using Microsoft.AspNetCore.Http;
 
 using System.Collections.Generic;
 using static Test_Site_1.Application.Services.Products.Commands.AddNewProduct.AddNewProductService;
+
 using Test_Site_1.Domain.Entities.Products;
+using Azure.Core;
+using Test_Site_1.Application.Services.Products.Commands.RemoveProduct;
+using static Test_Site_1.Application.Services.Products.Commands.EditProduct.EditProductService;
 
 
 
@@ -38,15 +43,82 @@ namespace Test_Site.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteProduct(long? productId)
+
+        //[HttpPost]
+
+        //public IActionResult DeleteProduct(long ProductId)
+        //{
+
+        //    Console.WriteLine( ProductId);
+        //    var result = _productFacad.RemoveProductService.Execute(ProductId);
+        //    Console.WriteLine(result);
+
+
+        //    if (ProductId == null)
+        //    {
+        //        return Json(new { isSuccess = false, message = "شناسه کالا معتبر نیست" });
+        //    }
+
+        //    Console.WriteLine("ProductId received in DeleteProduct action: " + ProductId); // Debugging log
+
+
+
+        //    if (result == null)
+        //    {
+        //        return Json(new { isSuccess = false, message = "در کنترلر کالا یافت نشد " });
+        //    }
+
+        //    return Json(result);
+        //}
+
+        [HttpPost]
+        public IActionResult DeleteProduct( long productId)
         {
             if (productId == null)
             {
                 return Json(new { isSuccess = false, message = "شناسه کالا معتبر نیست" });
             }
-            Console.WriteLine("CategoryId received in DeleteCategory action: " + productId); // بررسی مقدار دریافت شده
+
             var result = _productFacad.RemoveProductService.Execute(productId);
-            return View(result);
+
+            if (result == null  )
+            {
+                return Json(new { isSuccess = false, message = "در کنترلر کالا یافت نشد شیئ پوچ است "  });
+            }
+
+            if (!result.IsSuccess)
+            {
+                return Json(new { isSuccess = false, message = "در کنترلر کالا بافت نشد موفقییت امیز نبود " });
+            }
+
+            return Json(new { isSuccess = true, message = "کالا با موفقیت حذف شد" });
+        }
+
+
+        [HttpPost]
+        public IActionResult EditProduct(RequestEditProductDto request) 
+        {
+            if (request.ProductId == null || string.IsNullOrEmpty(request.Name))
+            {
+                return Json(new { isSuccess = false, message = "شناسه محصول یا نام معتبر نیست" });
+            }
+            var result = _productFacad.EditProductService.Execute(
+                new RequestEditProductDto
+                {
+                    ProductId = request.ProductId,
+                    Name = request.Name,
+                    Description = request.Description,
+                    Inventory = request.Inventory,
+                    Display = request.Display,
+                    Brand = request.Brand,
+                    Price = request.Price,
+                    CategoryId = request.CategoryId,
+                    ProductFeatures = request.ProductFeatures,
+                    ProductImages = request.ProductImages,
+                }
+                );
+            return Json(result);
+               
                 
         }
 

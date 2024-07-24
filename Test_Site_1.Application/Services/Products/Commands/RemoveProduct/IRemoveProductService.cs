@@ -5,7 +5,7 @@ namespace Test_Site_1.Application.Services.Products.Commands.RemoveProduct
 {
     public interface IRemoveProductService
     {
-        ResultDto Execute(long? Id);
+        ResultDto Execute(long productId);
     }
 
     public class RemoveProductService : IRemoveProductService
@@ -16,20 +16,19 @@ namespace Test_Site_1.Application.Services.Products.Commands.RemoveProduct
             _context = context;
         }
 
-
-        public ResultDto Execute(long? Id)
+        public ResultDto Execute(long productId)
         {
-            var product = _context.Products.Find(Id);
+            var product = _context.Products.Find(productId);
             if (product == null)
             {
                 return new ResultDto()
                 {
                     IsSuccess = false,
-                    Message = "کالایی انتخاب نشده "
+                    Message = "کالا در سرویس یافت نشد"
                 };
             }
             product.RemoveTime = DateTime.Now;
-            product.IsRemoved = true;
+            product.IsRemoved = true;           
             _context.SaveChanges();
             return new ResultDto()
             {
@@ -37,9 +36,9 @@ namespace Test_Site_1.Application.Services.Products.Commands.RemoveProduct
                 Message = "کالا با موفقیت حذف شد"
             };
         }
-
-
     }
+
+
 
 
 }

@@ -17,6 +17,8 @@ using Microsoft.Extensions.Hosting;
 using Test_Site_1.Application.Services.Products.Queries.GetProductForAdmin;
 using Test_Site_1.Application.Services.Products.Queries.GetProductDetailForAdmin;
 using Test_Site_1.Application.Services.Products.Commands.RemoveProduct;
+using Test_Site_1.Application.Services.Products.Queries.GetProductForSite;
+using Test_Site_1.Application.Services.Products.Commands.EditProduct;
 
 namespace Test_Site_1.Application.Services.Products.FacadPattern
 {
@@ -114,6 +116,24 @@ namespace Test_Site_1.Application.Services.Products.FacadPattern
             get 
             { 
                 return _removeProductService  = _removeProductService ?? new RemoveProductService(_context);
+            }
+        }
+
+        private IGetProductForSiteService _getProductForSiteService;
+        public IGetProductForSiteService GetProductForSiteService 
+        {
+            get 
+            { 
+                return _getProductForSiteService = _getProductForSiteService ?? new GetProductForSiteService(_context);
+            } 
+        }
+
+        private IEditProductService _editProductService;
+        public IEditProductService EditProductService 
+        {
+            get 
+            {
+                return _editProductService = _editProductService ?? new EditProductService(_context);
             }
         }
 

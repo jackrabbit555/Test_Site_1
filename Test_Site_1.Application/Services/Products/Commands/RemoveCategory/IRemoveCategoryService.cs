@@ -1,4 +1,5 @@
-﻿using Test_Site_1.Application.Interfaces.Contexts;
+﻿
+using Test_Site_1.Application.Interfaces.Contexts;
 using Test_Site_1.Common.Dto;
 
 namespace Test_Site_1.Application.Services.Products.Commands.RemoveCategory
@@ -19,7 +20,7 @@ namespace Test_Site_1.Application.Services.Products.Commands.RemoveCategory
 
         public ResultDto Execute(long? CategoryId)
         {
-            var category = _context.Categories.Find( CategoryId);
+            var category = _context.Categories.Find(CategoryId);
             //var category = _context.Categories.FirstOrDefault(c=>c.Id == CategoryId);
 
             if (category == null)

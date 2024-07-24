@@ -17,6 +17,8 @@ using Test_Site_1.Application.Services.Products.FacadPattern;
 using Test_Site_1.Application.Interfaces.FacadPatterns;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Test_Site_1.Application.Services.Common.Queries.GetMenuItem;
+using Test_Site_1.Application.Services.Common.Queries.GetCategory;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,7 +52,8 @@ builder.Services.AddScoped<IEditUserService, EditUserService>();
 builder.Services.AddScoped<IProductFacad, ProductFacad>();
 
 
-
+builder.Services.AddScoped<IGetMenuItemService, GetMenuItemService>();
+builder.Services.AddScoped<IGetCategoryService, GetCategoryService>();
 
 
 

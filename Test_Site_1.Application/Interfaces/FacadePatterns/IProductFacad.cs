@@ -12,6 +12,8 @@ using Test_Site_1.Application.Services.Products.Queries.GetAllCategories;
 using Test_Site_1.Application.Services.Products.Queries.GetProductForAdmin;
 using Test_Site_1.Application.Services.Products.Queries.GetProductDetailForAdmin;
 using Test_Site_1.Application.Services.Products.Commands.RemoveProduct;
+using Test_Site_1.Application.Services.Products.Queries.GetProductForSite;
+using Test_Site_1.Application.Services.Products.Commands.EditProduct;
 
 namespace Test_Site_1.Application.Interfaces.FacadPatterns
 {
@@ -26,14 +28,21 @@ namespace Test_Site_1.Application.Interfaces.FacadPatterns
 
         IGetCategoriesService  GetCategoriesService { get; }
         
-        //Reciving the Products List 
+        //Reciving the Products List For Admin
         IGetProductForAdminService GetProductForAdminService { get; } 
 
         IGetProductDetailForAdmin GetProductDetailForAdmin { get; }
 
         // Removing the Product
-        IRemoveProductService RemoveProductService { get; } 
+        IRemoveProductService RemoveProductService { get; }
 
 
+        // Editing the Product
+        IEditProductService EditProductService { get; }
+
+
+        //Reciving the Products List For Site 
+
+        IGetProductForSiteService GetProductForSiteService { get; }
     }
 }

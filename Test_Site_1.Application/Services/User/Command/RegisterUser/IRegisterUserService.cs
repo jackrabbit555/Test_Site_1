@@ -110,6 +110,7 @@ namespace Test_Site_1.Application.Services.Users.Commands.RgegisterUser
 
                 List<UserInRole> userInRoles = new List<UserInRole>();
 
+                
                 foreach (var item in request.roles)
                 {
                     var roles = _context.Roles.Find(item.Id);
@@ -137,8 +138,9 @@ namespace Test_Site_1.Application.Services.Users.Commands.RgegisterUser
                     Message = "ثبت نام کاربر انجام شد",
                 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var innerExceptionMessage = ex.InnerException?.Message;
                 return new ResultDto<ResultRegisterUserDto>()
                 {
                     Data = new ResultRegisterUserDto()
@@ -146,9 +148,10 @@ namespace Test_Site_1.Application.Services.Users.Commands.RgegisterUser
                         UserId = 0,
                     },
                     IsSuccess = false,
-                    Message = "ثبت نام انجام نشد !"
+                    Message = $"ثبت نام انجام نشد! خطا: {ex.Message} {innerExceptionMessage}"
                 };
             }
+        }
         }
     }
     public class RequestRegisterUserDto
@@ -172,4 +175,4 @@ namespace Test_Site_1.Application.Services.Users.Commands.RgegisterUser
 
 
 
-}
+
