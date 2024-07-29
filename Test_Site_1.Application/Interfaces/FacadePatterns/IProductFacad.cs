@@ -14,6 +14,7 @@ using Test_Site_1.Application.Services.Products.Queries.GetProductDetailForAdmin
 using Test_Site_1.Application.Services.Products.Commands.RemoveProduct;
 using Test_Site_1.Application.Services.Products.Queries.GetProductForSite;
 using Test_Site_1.Application.Services.Products.Commands.EditProduct;
+using Test_Site_1.Application.Services.Products.Queries.GetProductDeatilForSite;
 
 namespace Test_Site_1.Application.Interfaces.FacadPatterns
 {
@@ -44,5 +45,8 @@ namespace Test_Site_1.Application.Interfaces.FacadPatterns
         //Reciving the Products List For Site 
 
         IGetProductForSiteService GetProductForSiteService { get; }
+
+        //Reciving The Product Details
+        IGetProductDeatilForSiteService GetProductDeatilForSiteService { get; }
     }
 }

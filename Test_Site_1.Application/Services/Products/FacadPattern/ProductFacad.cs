@@ -19,6 +19,7 @@ using Test_Site_1.Application.Services.Products.Queries.GetProductDetailForAdmin
 using Test_Site_1.Application.Services.Products.Commands.RemoveProduct;
 using Test_Site_1.Application.Services.Products.Queries.GetProductForSite;
 using Test_Site_1.Application.Services.Products.Commands.EditProduct;
+using Test_Site_1.Application.Services.Products.Queries.GetProductDeatilForSite;
 
 namespace Test_Site_1.Application.Services.Products.FacadPattern
 {
@@ -137,5 +138,14 @@ namespace Test_Site_1.Application.Services.Products.FacadPattern
             }
         }
 
+        private IGetProductDeatilForSiteService _getProductDeatilForSiteService;
+        public  IGetProductDeatilForSiteService GetProductDeatilForSiteService 
+        {
+            get 
+            {
+                return _getProductDeatilForSiteService = _getProductDeatilForSiteService ?? new GetProductDeatilForSiteService(_context);
+            } 
+        }
+        
     }
 }

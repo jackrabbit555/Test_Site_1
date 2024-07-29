@@ -10,9 +10,10 @@ using Test_Site_1.Common.Dto;
 
 namespace Test_Site_1.Application.Services.Products.Queries.GetProductForSite
 {
+
     public interface IGetProductForSiteService
     {
-        ResultDto<ResultProductForSiteDto> Execute( string SearchKey , int page , long? CatId );
+        ResultDto<ResultProductForSiteDto> Execute(Ordering ordering, string SearchKey, int page, long? CatId, int pagesize);
 
     }
 
@@ -25,7 +26,9 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductForSite
                 _context = context;
         }
 
-        public ResultDto<ResultProductForSiteDto> Execute(string SearchKey,int page, long? CatId) 
+
+      
+        public ResultDto<ResultProductForSiteDto> Execute(Ordering ordering, string SearchKey,int page, long? CatId,int pageSize) 
         {
             int totalrow = 0;
             Random rnd = new Random();
@@ -40,7 +43,34 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductForSite
                 productQuery = productQuery.Where(p => p.Name.Contains(SearchKey) || p.Brand.Contains(SearchKey)).AsQueryable();
             }
 
-            var product = productQuery.ToPaged(page, 5, out totalrow);
+            switch (ordering)
+            {
+                case Ordering.NotOrder:
+                    productQuery = productQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.MostVisited:
+                    productQuery = productQuery.OrderByDescending(p => p.ViewCount).AsQueryable();
+                    break;
+                case Ordering.Bestselling:
+                    break;
+                case Ordering.MostPopular:
+                    break;
+                case Ordering.theNewest:
+                    productQuery = productQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.Cheapest:
+                    productQuery = productQuery.OrderBy(p => p.Price).AsQueryable();
+                    break;
+                case Ordering.theMostExpensive:
+                    productQuery = productQuery.OrderByDescending(p => p.Price).AsQueryable(); 
+                    break;
+                default:
+                    break;
+            }
+
+
+
+            var product = productQuery.ToPaged(page, pageSize, out totalrow);
 
             return new ResultDto<ResultProductForSiteDto>
             {
@@ -62,6 +92,39 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductForSite
 
         }
     }
+
+
+    public enum Ordering
+    {
+        NotOrder = 0,
+        /// <summary>
+        /// پربازدیدترین
+        /// </summary>
+        MostVisited = 1,
+        /// <summary>
+        /// پرفروشترین
+        /// </summary>
+        Bestselling = 2,
+        /// <summary>
+        /// محبوبترین
+        /// </summary>
+        MostPopular = 3,
+        /// <summary>
+        /// جدیدترین
+        /// </summary>
+        theNewest = 4,
+        /// <summary>
+        /// ارزانترین
+        /// </summary>
+        Cheapest = 5,
+        /// <summary>
+        /// گرانترین
+        /// </summary>
+        theMostExpensive = 6
+    }
+
+
+
 
     public class ProductForSiteDto 
     {

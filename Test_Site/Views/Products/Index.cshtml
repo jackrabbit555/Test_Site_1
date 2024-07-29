@@ -1,5 +1,4 @@
 ﻿@addTagHelper *, LazZiya.TagHelpers
-
 @using Test_Site_1.Application.Services.Products.Queries.GetProductForSite;
 @model ResultProductForSiteDto;
 @{
@@ -21,7 +20,7 @@
             <div class="nav-sort-tabs-res">
                 <ul class="nav sort-tabs-options" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" href="~/products?Searchkey=@Context.Request.Query["SearchKey"]&CatId=@Context.Request.Query["CatId"]&ordering=MostVisited" role="tab" aria-controls="Most-visited" aria-selected="true">پربازدیدترین</a>
+                        <a class="nav-link active" href="~/products?SearchKey=@Context.Request.Query["SearchKey"]&CatId=@Context.Request.Query["CatId"]&ordering=MostVisited" role="tab" aria-controls="Most-visited" aria-selected="true">پربازدیدترین</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="~/products?Searchkey=@Context.Request.Query["SearchKey"]&CatId=@Context.Request.Query["CatId"]&ordering=Bestselling" role="tab" aria-controls="Bestselling" aria-selected="false">پرفروش&zwnj;ترین&zwnj;</a>
@@ -93,7 +92,7 @@
             <nav aria-label="Page navigation example">
                 <paging total-records="@Model.TotalRow"
                         page-no="@pageNumber==0?1:pageNumber"
-                        page-size="@pageSize==0?20:pageNumber"
+                        page-size="@pageSize==0?20:pageSize"
                         show-prev-next="true"
                         show-total-pages="false"
                         show-total-records="false"
