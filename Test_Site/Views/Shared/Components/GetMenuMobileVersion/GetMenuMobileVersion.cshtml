@@ -1,0 +1,33 @@
+﻿@using Test_Site_1.Application.Services.Common.Queries;
+@model List<MenuItemDto>
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+    <li>
+        <a href="#" class="collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="mdi mdi-chevron-down"></i>@item.Name</a>
+        
+
+        @if (item.Child.Count()>0)
+        {
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample" style="">
+            </div>
+            <ul>
+                <li class="has-sub">
+                    @foreach (var itemchild in item.Child)
+                    {
+                        <a href="#" class="category-level-2">لوازم جانبی گوشی</a>
+                        @itemchild.Name
+                    }
+                   
+                </li>
+
+            </ul>
+        }
+           
+          
+        
+       
+    </li>
+}

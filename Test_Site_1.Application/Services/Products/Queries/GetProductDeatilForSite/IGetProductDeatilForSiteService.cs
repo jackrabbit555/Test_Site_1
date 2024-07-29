@@ -35,6 +35,8 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductDeatilForS
                 throw new Exception("Product NotFound ..... ");
             }
 
+
+            var viewcount = Product.ViewCount;
             Product.ViewCount++;
             _context.SaveChanges();
             return new ResultDto<ProductDetailForSiteDto>()
@@ -50,7 +52,7 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductDeatilForS
                     Images = Product.ProductImages.Select(p => p.Src).ToList(),
                     Features = Product.ProductFeatures.Select(p => new ProductDetailForSite_FeaturesDto
                     {
-                        DispalyName = p.DisplayName,
+                        DisplayName = p.DisplayName,
                         Value = p.Value,
 
                     }).ToList(),
@@ -82,7 +84,7 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductDeatilForS
 
     public class ProductDetailForSite_FeaturesDto 
     {
-        public string DispalyName { get; set; }
+        public string DisplayName { get; set; }
         public string Value { get; set; }
     }
 

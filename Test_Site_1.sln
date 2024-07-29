@@ -17,17 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3C83100A-8415-42E4-B428-18FD9E478734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Site_1.Common", "Test_Site_1.Common\Test_Site_1.Common.csproj", "{3C519595-16B2-4AA6-AD01-AA6D2BE1FD07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_Site_1.Common", "Test_Site_1.Common\Test_Site_1.Common.csproj", "{3C519595-16B2-4AA6-AD01-AA6D2BE1FD07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Site_1.Application", "Test_Site_1.Application\Test_Site_1.Application.csproj", "{406DE3F2-DF1E-4812-BEDA-91DAAC8C6B03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_Site_1.Application", "Test_Site_1.Application\Test_Site_1.Application.csproj", "{406DE3F2-DF1E-4812-BEDA-91DAAC8C6B03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Site_1.Domain", "Test_Site_1.Core\Test_Site_1.Domain.csproj", "{2994486E-92D1-47F7-A7D3-52005D1785EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_Site_1.Domain", "Test_Site_1.Core\Test_Site_1.Domain.csproj", "{2994486E-92D1-47F7-A7D3-52005D1785EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Site", "Test_Site\Test_Site.csproj", "{B04928BE-8A20-4C16-A522-331355F56D3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_Site", "Test_Site\Test_Site.csproj", "{B04928BE-8A20-4C16-A522-331355F56D3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Site_1.Infrastructure", "Test_Site_1.Infrastructure\Test_Site_1.Infrastructure.csproj", "{A228C8B3-6451-4E85-9A53-55C0C18D8BC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_Site_1.Infrastructure", "Test_Site_1.Infrastructure\Test_Site_1.Infrastructure.csproj", "{A228C8B3-6451-4E85-9A53-55C0C18D8BC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_site_1.Persistance", "Test_site_1.Persistance\Test_site_1.Persistance.csproj", "{E30DE29A-C97D-4BB5-9B48-9A63E9CCE95B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_site_1.Persistance", "Test_site_1.Persistance\Test_site_1.Persistance.csproj", "{E30DE29A-C97D-4BB5-9B48-9A63E9CCE95B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
