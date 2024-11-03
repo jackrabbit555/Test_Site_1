@@ -77,10 +77,12 @@ namespace Test_Site_1.Application.Services.Users.Commands.UserLogin
             }
 
 
-            var roles = "";
+            List<string> roles = new List<string> ();
             foreach (var item in user.UserInRoles)
             {
-                roles += $"{item.Role.Name}";
+
+                roles.Add(item.Role.Name);
+                
             }
 
 
@@ -103,7 +105,7 @@ namespace Test_Site_1.Application.Services.Users.Commands.UserLogin
     public class ResultUserloginDto
     {
         public long UserId { get; set; }
-        public string Roles { get; set; }
+        public List<string> Roles { get; set; }
         public string Name { get; set; }
     }
 }

@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Text.RegularExpressions;
+using Test_Site.Models.ViewModels.AuthenticationViewModel;
 using Test_Site_1.Application.Services.Users.Commands.RgegisterUser;
 using Test_Site_1.Application.Services.Users.Commands.UserLogin;
-using Test_Site.Models.ViewModels.AuthenticationViewModel;
 using Test_Site_1.Common.Dto;
-using System.Text.RegularExpressions;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using System.Security.Principal;
-using Microsoft.Identity.Client;
 
 
 
@@ -22,7 +18,7 @@ namespace Test_Site.Controllers
         private readonly IUserLoginService _userLoginService;
 
 
-        public  AuthenticationController(IRegisterUserService registerUserService, IUserLoginService userLoginService) 
+        public AuthenticationController(IRegisterUserService registerUserService, IUserLoginService userLoginService)
         {
             _registerUserService = registerUserService;
             _userLoginService = userLoginService;
@@ -31,8 +27,8 @@ namespace Test_Site.Controllers
 
 
         [HttpGet]
-        public ActionResult SignUp() 
-        { 
+        public ActionResult SignUp()
+        {
             return View();
         }
         [HttpPost]
@@ -61,7 +57,7 @@ namespace Test_Site.Controllers
                 return Json(new ResultDto { IsSuccess = true, Message = "ایمیل خودرا به درستی وارد نمایید" });
             }
 
-            var signupResult = _registerUserService.Execute(new RequestRegisterUserDto
+            var signeupResult = _registerUserService.Execute(new RequestRegisterUserDto
             {
                 Email = request.Email,
                 FullName = request.FullName,
@@ -72,15 +68,19 @@ namespace Test_Site.Controllers
                 new RolesInRegisterUserDto{Id = 3  },
                 }
             });
-            if (!signupResult.IsSuccess == true)
+            if (!signeupResult.IsSuccess == true)
             {
                 var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier,signupResult.Data.UserId.ToString()),
+                new Claim(ClaimTypes.NameIdentifier,signeupResult.Data.UserId.ToString()),
                 new Claim(ClaimTypes.Email, request.Email),
                 new Claim(ClaimTypes.Name, request.FullName),
-                new Claim(ClaimTypes.Role, "Customer"),
+                new Claim (ClaimTypes.Role, "Customer"),
+
+
             };
+
+
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var pricipal = new ClaimsPrincipal(identity);
@@ -91,29 +91,36 @@ namespace Test_Site.Controllers
 
                 HttpContext.SignInAsync(pricipal, properties);
             }
-            return Json(signupResult);
+            return Json(signeupResult);
 
         }
         [HttpGet]
-         public IActionResult Signin(string ReturnUrl = "/")
+        public IActionResult Signin(string ReturnUrl = "/")
         {
-                ViewBag.url  = ReturnUrl;
-               return View();
+            ViewBag.url = ReturnUrl;
+            return View();
         }
 
         [HttpPost]
         public IActionResult Signin(string Email, string Password, string url = "/")
         {
-            var signupresult = _userLoginService.Execute(Email, Password);
-            if (signupresult.IsSuccess == true)
+            var signupResult = _userLoginService.Execute(Email, Password);
+            if (signupResult.IsSuccess == true)
             {
                 var claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier,signupresult.Data.UserId.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier,signupResult.Data.UserId.ToString()),
                     new Claim(ClaimTypes.Email, Email),
-                    new Claim(ClaimTypes.Name , signupresult.Data.Name ),
-                    new Claim(ClaimTypes.Role , signupresult.Data.Roles)
+                    new Claim(ClaimTypes.Name , signupResult.Data.Name ),
+
+
                 };
+
+
+                foreach (var item in signupResult.Data.Roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, item));
+                }
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var pricipal = new ClaimsPrincipal(identity);
                 var properties = new AuthenticationProperties()
@@ -123,9 +130,10 @@ namespace Test_Site.Controllers
                 };
                 HttpContext.SignInAsync(pricipal, properties);
             }
-            return Json(signupresult);
+           
+            return Json(signupResult);
         }
-        public IActionResult SignOut() 
+        public IActionResult SignOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");

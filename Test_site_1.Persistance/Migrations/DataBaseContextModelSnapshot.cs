@@ -22,6 +22,284 @@ namespace Test_site_1.Persistance.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Carts.Cart", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<Guid>("BrowserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Finished")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Carts.CartItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CartId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Finances.RequestPay", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Authority")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsPay")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("PayDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("RefId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RequestPays");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.HomePage.HomePageImages", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("ImageLocation")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HomePageImages");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.HomePage.Slider", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sliders");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Orders.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrderState")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("RequestPayId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestPayId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Orders.OrderDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("Test_Site_1.Domain.Entities.Products.Category", b =>
                 {
                     b.Property<long>("Id")
@@ -214,21 +492,21 @@ namespace Test_site_1.Persistance.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2024, 7, 28, 16, 24, 42, 807, DateTimeKind.Local).AddTicks(2655),
+                            InsertTime = new DateTime(2024, 11, 3, 13, 9, 51, 410, DateTimeKind.Local).AddTicks(9015),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2024, 7, 28, 16, 24, 42, 807, DateTimeKind.Local).AddTicks(2717),
+                            InsertTime = new DateTime(2024, 11, 3, 13, 9, 51, 410, DateTimeKind.Local).AddTicks(9080),
                             IsRemoved = false,
                             Name = "Operator"
                         },
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2024, 7, 28, 16, 24, 42, 807, DateTimeKind.Local).AddTicks(2736),
+                            InsertTime = new DateTime(2024, 11, 3, 13, 9, 51, 410, DateTimeKind.Local).AddTicks(9100),
                             IsRemoved = false,
                             Name = "Customer"
                         });
@@ -312,6 +590,83 @@ namespace Test_site_1.Persistance.Migrations
                     b.ToTable("UserInRoles");
                 });
 
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Carts.Cart", b =>
+                {
+                    b.HasOne("Test_Site_1.Domain.Entities.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Carts.CartItem", b =>
+                {
+                    b.HasOne("Test_Site_1.Domain.Entities.Carts.Cart", "Cart")
+                        .WithMany("cartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Test_Site_1.Domain.Entities.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Finances.RequestPay", b =>
+                {
+                    b.HasOne("Test_Site_1.Domain.Entities.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Orders.Order", b =>
+                {
+                    b.HasOne("Test_Site_1.Domain.Entities.Finances.RequestPay", "RequestPay")
+                        .WithMany("Orders")
+                        .HasForeignKey("RequestPayId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Test_Site_1.Domain.Entities.Users.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("RequestPay");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Orders.OrderDetail", b =>
+                {
+                    b.HasOne("Test_Site_1.Domain.Entities.Orders.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Test_Site_1.Domain.Entities.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Test_Site_1.Domain.Entities.Products.Category", b =>
                 {
                     b.HasOne("Test_Site_1.Domain.Entities.Products.Category", "ParentCategory")
@@ -373,6 +728,21 @@ namespace Test_site_1.Persistance.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Carts.Cart", b =>
+                {
+                    b.Navigation("cartItems");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Finances.RequestPay", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Test_Site_1.Domain.Entities.Orders.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
             modelBuilder.Entity("Test_Site_1.Domain.Entities.Products.Category", b =>
                 {
                     b.Navigation("SubCategories");
@@ -392,6 +762,8 @@ namespace Test_site_1.Persistance.Migrations
 
             modelBuilder.Entity("Test_Site_1.Domain.Entities.Users.User", b =>
                 {
+                    b.Navigation("Orders");
+
                     b.Navigation("UserInRoles");
                 });
 #pragma warning restore 612, 618

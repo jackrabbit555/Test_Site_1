@@ -31,19 +31,19 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetAllCategories
 
             var categories = _context.Categories
                 .Include(p=>p.ParentCategory)
-                .Where(p=>p.ParentCategoryId!=null)
+                .Where(p=>p.ParentCategoryId!=null)// بسته به نیاز، می‌توانید این شرط را حذف کنید
                 .ToList()
                 .Select(p=> new AllCategoriesDto 
             {
-                Id = p.Id,
+                    Id = p.Id,
                     Name = p.ParentCategory != null ? $"{p.ParentCategory.Name}-{p.Name}" : p.Name,
                 }
             ).ToList();
             return new ResultDto<List<AllCategoriesDto>>
             {
                 Data = categories,
-                IsSuccess = false,
-                Message = ""
+                IsSuccess = true,
+                Message = "دسته‌بندی‌ها با موفقیت دریافت شد"
 
             };
         }

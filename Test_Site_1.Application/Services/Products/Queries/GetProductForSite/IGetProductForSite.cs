@@ -13,7 +13,7 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductForSite
 
     public interface IGetProductForSiteService
     {
-        ResultDto<ResultProductForSiteDto> Execute(Ordering ordering, string SearchKey, int page, long? CatId, int pagesize);
+        ResultDto<ResultProductForSiteDto> Execute(Ordering ordering,string SearchKey, int Page,int pageSize, long? CatId );
 
     }
 
@@ -28,7 +28,7 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductForSite
 
 
       
-        public ResultDto<ResultProductForSiteDto> Execute(Ordering ordering, string SearchKey,int page, long? CatId,int pageSize) 
+        public ResultDto<ResultProductForSiteDto> Execute(Ordering ordering, string SearchKey, int Page, int pageSize, long? CatId) 
         {
             int totalrow = 0;
             Random rnd = new Random();
@@ -70,7 +70,7 @@ namespace Test_Site_1.Application.Services.Products.Queries.GetProductForSite
 
 
 
-            var product = productQuery.ToPaged(page, pageSize, out totalrow);
+            var product = productQuery.ToPaged(Page, pageSize, out totalrow);
 
             return new ResultDto<ResultProductForSiteDto>
             {

@@ -125,8 +125,19 @@ namespace Test_Site.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddNewProduct()
         {
-            ViewBag.Categories = new SelectList(_productFacad.GetAllCategoriesService.Execute().Data, "Id", "Name");
+            var categoriesData = _productFacad.GetAllCategoriesService.Execute().Data;
+            if (categoriesData != null)
+            {
+                ViewBag.Categories = new SelectList(categoriesData, "Id", "Name");
+            }
+            else 
+            {
+                ViewBag.Categories = new SelectList(Enumerable.Empty<SelectListItem>());
+            }
             return View();
+            //Bageto Method
+            //ViewBag.Categories = new SelectList(_productFacad.GetAllCategoriesService.Execute().Data, "Id", "Name");
+            //return View();
         }
 
         [HttpPost]

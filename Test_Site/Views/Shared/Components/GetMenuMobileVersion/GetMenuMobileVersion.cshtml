@@ -3,31 +3,132 @@
 @{
     Layout = null;
 }
-@foreach (var item in Model)
+
+
+   
+
+
+
+
+
+@for (int i = 0; i < Model.Count; i++)
 {
+    var item = Model[i];
+    var collapseId = $"collapse_{i}";
+    var headingId = $"heading_{i}";
+
     <li>
-        <a href="#" class="collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="mdi mdi-chevron-down"></i>@item.Name</a>
-        
-
-        @if (item.Child.Count()>0)
-        {
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample" style="">
-            </div>
-            <ul>
-                <li class="has-sub">
-                    @foreach (var itemchild in item.Child)
+        <a href="#" class="collapsed" type="button" data-toggle="collapse" data-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
+            <i class="mdi mdi-chevron-down"></i>@item.Name
+        </a>
+        <div id="@collapseId" class="collapse"  aria-labelledby="@headingId" data-parent="#accordionExample">
+            @if (item.Child != null && item.Child.Count > 0)
+            {
+                <ul>
+                    @foreach (var itemChild in item.Child)
                     {
-                        <a href="#" class="category-level-2">لوازم جانبی گوشی</a>
-                        @itemchild.Name
-                    }
-                   
-                </li>
+                        var collapseChildId = $"collapseChild_{itemChild.CatId}";
+                        var headingChildId = $"headingChild_{itemChild.CatId}";
 
-            </ul>
-        }
-           
-          
-        
-       
+                        <li class="has-sub" dir="ltr">
+                            <a href="#" class="collapsed" class="category-level-2" type="button" data-toggle="collapse" data-target="#@collapseChildId" aria-expanded="false" aria-controls="@collapseChildId">
+                                @itemChild.Name
+                            </a>
+                            
+                             <div id="@collapseChildId" class="collapse" aria-labelledby="@headingChildId" data-parent="#@collapseId">
+                                <!-- محتوا یا زیرمنوهای اضافی برای سطح دوم (در صورت نیاز) -->
+                            </div> 
+                        
+                        </li>
+                        
+                    }
+                </ul>
+            }
+        </div>
     </li>
 }
+
+
+
+
+
+
+
+
+@*  @foreach (var item in Model)
+{
+   
+
+    <li>
+        <a href="#" class="collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <i class="mdi mdi-chevron-down"></i>@item.Name
+        </a>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample" style="">
+            @if (item.Child.Count > 0)
+            {
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
+            </div>
+            <ul>
+               
+                    @foreach (var itemChild in item.Child)
+                    {
+                        
+                        <li class="has-sub">
+                          <a href="#" class="category-level-2">@itemChild.Name</a>
+                            <ul>
+                                   <li><a href="#" class="category-level-3">@itemChild.Child</a></li>
+                            </ul>
+                        </li>
+                                
+                    }
+                  
+            </ul>
+                 
+            }
+
+      </div>
+
+    </li>
+    
+}  *@
+
+
+@* <li>
+    <a href="#" class="collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="mdi mdi-chevron-down"></i>کالای دیجیتال</a>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample" style="">
+        <ul>
+            <li class="has-sub">
+                <a href="#" class="category-level-2">لوازم جانبی گوشی</a>
+                <ul>
+                    <li><a href="#" class="category-level-3">کیف و کاور گوشی</a></li>
+                    <li><a href="#" class="category-level-3">پاور بانک(شارژر همراه)</a></li>
+                    <li><a href="#" class="category-level-3">پایه نگهدارنده گوشی</a></li>
+                    <li><a href="#" class="category-level-3">همه موارد این دسته</a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a href="#" class="category-level-2">گوشی موبایل</a>
+                <ul>
+                    <li><a href="#" class="category-level-3">سامسونگ</a></li>
+                    <li><a href="#" class="category-level-3">هوآوی</a></li>
+                    <li><a href="#" class="category-level-3">اپل</a></li>
+                    <li><a href="#" class="category-level-3">شیائومی</a></li>
+                    <li><a href="#" class="category-level-3">آنر</a></li>
+                    <li><a href="#" class="category-level-3">نوکیا</a></li>
+                    <li><a href="#" class="category-level-3">همه موارد این دسته</a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a href="#" class="category-level-2">دوربین</a>
+                <ul>
+                    <li><a href="#" class="category-level-3">دوربین عکاسی دیجیتال</a></li>
+                    <li><a href="#" class="category-level-3">دوربین ورزشی و فیلم برداری</a></li>
+                    <li><a href="#" class="category-level-3">دوربین چاپ سریع</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</li>
+<li *@>
+   
+

@@ -19,9 +19,35 @@ using Microsoft.CodeAnalysis.Options;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Test_Site_1.Application.Services.Common.Queries.GetMenuItem;
 using Test_Site_1.Application.Services.Common.Queries.GetCategory;
+using Test_Site_1.Application.Services.HomePage.AddNewSlider;
+using Test_Site_1.Application.Services.Common.Queries.GetSlider;
+using Test_Site_1.Application.Services.HomePage.AddHomePageImage;
+using Test_Site_1.Application.Services.Common.Queries.GetHomePageImage;
+using Test_Site_1.Application.Services.Carts;
+using Test_Site_1.Application.Services.Finances.Command.AddReuestPay;
+using Test_Site_1.Common.Roles;
+using Microsoft.Extensions.Options;
+using Test_Site.Utilities;
+using Test_Site_1.Application.Services.Finances.Queries.IGetRequestPayService;
+using Test_Site_1.Application.Services.Finances.Queries.GetRequestPayService;
+using Test_Site_1.Application.Services.Orders.Queries.GetOrdersForAdmin;
+using Test_Site_1.Application.Services.Orders.Command;
+using Test_Site_1.Application.Services.Orders.Queries.GetUserOrders;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+//add policy
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(UserRoles.Admin, policy => policy.RequireRole(UserRoles.Admin));
+    options.AddPolicy(UserRoles.Customer, policy => policy.RequireRole(UserRoles.Customer));
+    options.AddPolicy(UserRoles.Operator, policy => policy.RequireRole(UserRoles.Operator));
+});
+
 
 builder.Services.AddAuthentication(Option =>
 {
@@ -30,9 +56,13 @@ builder.Services.AddAuthentication(Option =>
     Option.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 }).AddCookie(Option =>
 {
-    Option.LoginPath = new PathString("/");
-    Option.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+    Option.LoginPath = new PathString("/Authentication/Signin");
+    Option.ExpireTimeSpan = TimeSpan.FromMinutes(30.0);
+    Option.AccessDeniedPath = new PathString("/Authentication/Signin");
 });
+
+
+
 
 
 
@@ -54,6 +84,27 @@ builder.Services.AddScoped<IProductFacad, ProductFacad>();
 
 builder.Services.AddScoped<IGetMenuItemService, GetMenuItemService>();
 builder.Services.AddScoped<IGetCategoryService, GetCategoryService>();
+builder.Services.AddScoped<IAddNewSliderService, AddNewSliderService>();
+builder.Services.AddScoped<IGetSliderService, GetSliderDtoService>();
+builder.Services.AddScoped<IAddHomePageImageService, AddHomePageImagesService>();
+builder.Services.AddScoped<IGetHomePageImagesService, GetHomePageImagesService>();
+
+builder.Services.AddScoped<CookiesManeger>();
+
+builder.Services.AddScoped<ICartService, CartService>();
+
+builder.Services.AddScoped<IAddRequestpayService, AddRequestpayService>();
+builder.Services.AddScoped<IGetRequestPayService, GetRequestPayService>();
+
+
+builder.Services.AddScoped<IGetRrquestPayForAdminService, GetRrquestPayForAdminService>();
+
+builder.Services.AddScoped<IAddNewOrderService, AddNewOrderService>();
+builder.Services.AddScoped<IGetOrdersForAdminService, GetOrdersForAdminService>();
+builder.Services.AddScoped<IGetUserOrderService, GetUserOrderService>();
+
+
+
 
 
 
@@ -78,8 +129,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseAuthentication();
+
 app.UseAuthorization();
+
+
 
 app.MapControllerRoute(
     name: "default",

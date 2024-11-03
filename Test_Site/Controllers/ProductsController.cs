@@ -20,7 +20,7 @@ namespace Test_Site.Controllers
         public IActionResult Index(string searchKey, Ordering ordering , long? catId = null, int page = 1, int pageSize = 20)
         {
 
-            var result = _productFacad.GetProductForSiteService.Execute( ordering , searchKey, page, catId, pageSize).Data;
+            var result = _productFacad.GetProductForSiteService.Execute( ordering , searchKey, page, pageSize, catId).Data;
 
             return View(result);
         }

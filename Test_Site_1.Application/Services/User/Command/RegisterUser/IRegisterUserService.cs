@@ -133,6 +133,7 @@ namespace Test_Site_1.Application.Services.Users.Commands.RgegisterUser
                     Data = new ResultRegisterUserDto()
                     {
                         UserId = user.Id,
+                        
                     },
                     IsSuccess = true,
                     Message = "ثبت نام کاربر انجام شد",
